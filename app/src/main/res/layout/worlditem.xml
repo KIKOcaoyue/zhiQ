@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titletxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="这是标题" />
+
+    <TextView
+        android:id="@+id/introducetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是简介"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/hottxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是热度"
+        android:textSize="10sp" />
+</LinearLayout>

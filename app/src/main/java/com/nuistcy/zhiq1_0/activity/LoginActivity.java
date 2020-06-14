@@ -54,15 +54,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(List<User> list, BmobException e) {
                 if(e==null){
-                    Message msg = Message.obtain();
-                    msg.what = QUERYDATABASE;
-                    msg.obj = list.get(0).getUserpwd()+"#"+pwd; //a#b
-                    handler.sendMessage(msg);
+                    handlersendmessage( list.get(0).getUserpwd()+"#"+pwd);
+//                    Message msg = Message.obtain();
+//                    msg.what = QUERYDATABASE;
+//                    msg.obj = list.get(0).getUserpwd()+"#"+pwd; //a#b
+//                    handler.sendMessage(msg);
                 }else{
-                    Message msg = Message.obtain();
-                    msg.what = QUERYDATABASE;
-                    msg.obj = "NULL"; //a#b
-                    handler.sendMessage(msg);
+                    handlersendmessage( "NULL");
+//                    Message msg = Message.obtain();
+//                    msg.what = QUERYDATABASE;
+//                    msg.obj = "NULL"; //a#b
+//                    handler.sendMessage(msg);
                 }
             }
         });
@@ -108,5 +110,12 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             return false;
         }
+    }
+
+    private void handlersendmessage(String str){
+        Message msg = Message.obtain();
+        msg.what = QUERYDATABASE;
+        msg.obj = str; //a#b
+        handler.sendMessage(msg);
     }
 }

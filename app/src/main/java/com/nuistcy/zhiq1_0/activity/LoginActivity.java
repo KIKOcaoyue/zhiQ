@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button btnlogin = (Button) findViewById(R.id.btnlogin);
-        Bmob.initialize(this,"b9194c9e79bfa98be319126e045f09d1");
+        Bmob.initialize(this,"mykey");
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

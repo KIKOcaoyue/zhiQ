@@ -1,5 +1,6 @@
 # zhiQ
 you are share your ideas on zhiQ.
+
 No matter who you are, you are ideaman.
 
 人人都是思想家。

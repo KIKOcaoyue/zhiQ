@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.nuistcy.zhiq1_0.R;
+import com.nuistcy.zhiq1_0.activity.LaunchtopicActivity;
 import com.nuistcy.zhiq1_0.activity.ViewtopicActivity;
 
 public class NotificationsFragment extends Fragment {
@@ -44,7 +45,7 @@ public class NotificationsFragment extends Fragment {
         btnlaunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ViewtopicActivity.class));
+                startActivity(new Intent(getActivity(), LaunchtopicActivity.class));
             }
         });
     }

@@ -1,13 +1,17 @@
 package com.nuistcy.zhiq1_0.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.nuistcy.zhiq1_0.R;
+import com.nuistcy.zhiq1_0.activity.ViewtopicActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,12 +34,17 @@ public class DashboardFragment extends Fragment {
     private ArrayList<Map<String,String>> data = new ArrayList<>();
     private String[] from = {"title","intro","hot"};
     private int[] to = {R.id.titletxt,R.id.introducetxt,R.id.hottxt};
+    private SimpleAdapter adapter;
+    private int cnt = 10;
 
     @Override
     public void onStart(){
         initView();
         super.onStart();
     }
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
@@ -49,15 +59,27 @@ public class DashboardFragment extends Fragment {
 //        });
 //        return root;
         worldlist = (ListView) root.findViewById(R.id.worldlist);
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(),data,R.layout.worlditem,from,to);
+        adapter = new SimpleAdapter(getActivity(),data,R.layout.worlditem,from,to);
         worldlist.setAdapter(adapter);
         return root;
     }
     public void initView(){
-        Map<String,String> item = new HashMap<>();
-        item.put("title","Android开发到底应该怎么学？");
-        item.put("intro","Android开发是一个很困难的事情，作为一名大学生，到底应当怎么学习呢？请大家畅所欲言。");
-        item.put("hot","热度：5902");
-        data.add(item);
+        data.clear();
+        for(int i=0;i<cnt;i++) {
+            Map<String, String> item = new HashMap<>();
+            item.put("title", "Android开发到底应该怎么学？");
+            item.put("intro", "Android开发是一个很困难的事情，作为一名大学生，到底应当怎么学习呢？请大家畅所欲言。");
+            item.put("hot", "热度：5902");
+            data.add(item);
+        }
+        adapter.notifyDataSetChanged();
+        worldlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //adapter.notifyDataSetChanged();
+                getActivity().startActivity(new Intent(getActivity(),ViewtopicActivity.class));
+                //Toast.makeText(getActivity(),"第"+i+"行",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

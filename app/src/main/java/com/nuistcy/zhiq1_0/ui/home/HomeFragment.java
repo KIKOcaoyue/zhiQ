@@ -1,6 +1,7 @@
 package com.nuistcy.zhiq1_0.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,15 @@ public class HomeFragment extends Fragment {
     private int[] to = {R.id.nametxt,R.id.messagetxt,R.id.timetxt};
     private ListView messagelist;
     private HomeViewModel homeViewModel;
+    private SimpleAdapter adapter;
 
     @Override
     public void onStart(){
         initView();
         super.onStart();
     }
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 //        homeViewModel =
@@ -49,12 +53,13 @@ public class HomeFragment extends Fragment {
 //        });
 //        return root;
         messagelist = (ListView) root.findViewById(R.id.messagelist);
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(),data,R.layout.messagelistitem,from,to);
+        adapter = new SimpleAdapter(getActivity(),data,R.layout.messagelistitem,from,to);
         messagelist.setAdapter(adapter);
         return root;
     }
 
     private void initView(){
+        data.clear();
         Map<String,String> item = new HashMap<>();
         Map<String,String> item2 = new HashMap<>();
         item.put("name","cy");
@@ -65,5 +70,6 @@ public class HomeFragment extends Fragment {
         item2.put("message","world");
         item2.put("time","8:35PM");
         data.add(item2);
+        adapter.notifyDataSetChanged();
     }
 }

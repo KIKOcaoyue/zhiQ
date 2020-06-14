@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".activity.AnswerActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edittxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="输入您的想法吧"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的这是有东西的" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnsendanswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发表回答" />
+</LinearLayout>

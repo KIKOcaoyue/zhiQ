@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         btnlogin = (Button) findViewById(R.id.btnlogin);
-        Bmob.initialize(this,"b9194c9e79bfa98be319126e045f09d1");
+        Bmob.initialize(this,"mykey");
         editusername = (TextView) findViewById(R.id.editusername);
         editpwd = (TextView) findViewById(R.id.editpwd);
         btnlogin.setOnClickListener(new View.OnClickListener() {

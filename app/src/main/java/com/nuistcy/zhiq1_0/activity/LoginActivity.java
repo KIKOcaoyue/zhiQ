@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,9 +18,8 @@ import android.widget.Toast;
 import com.nuistcy.zhiq1_0.MainActivity;
 import com.nuistcy.zhiq1_0.R;
 import com.nuistcy.zhiq1_0.entity.User;
-import com.nuistcy.zhiq1_0.nets.socketHandle;
+import com.nuistcy.zhiq1_0.status.MyApplication;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,41 +28,42 @@ public class LoginActivity extends AppCompatActivity {
     private static TextView editusername;
     private static TextView editpwd;
     private static Button btnlogin;
+    private static Button btnregister;
+    private MyApplication myapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         btnlogin = (Button) findViewById(R.id.btnlogin);
+        btnregister = (Button) findViewById(R.id.btnregregister);
         Bmob.initialize(this,"mykey");
         editusername = (TextView) findViewById(R.id.editusername);
         editpwd = (TextView) findViewById(R.id.editpwd);
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checklogin(editusername.getText().toString().trim(),editpwd.getText().toString().trim());
+                checklogin(Long.parseLong(editusername.getText().toString().trim()),editpwd.getText().toString().trim());
+            }
+        });
+        btnregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
     }
 
-    private void checklogin(String userid,String pwd){
+    private void checklogin(Long userid,String pwd){
         BmobQuery<User> userquery = new BmobQuery<User>();
         userquery.addWhereEqualTo("userid",userid);
         userquery.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> list, BmobException e) {
                 if(e==null){
-                    handlersendmessage( list.get(0).getUserpwd()+"#"+pwd);
-//                    Message msg = Message.obtain();
-//                    msg.what = QUERYDATABASE;
-//                    msg.obj = list.get(0).getUserpwd()+"#"+pwd; //a#b
-//                    handler.sendMessage(msg);
+                    handlersendmessage( list.get(0).getUserpwd()+"#"+pwd+"%"+list.get(0).getUserid()+'$'+list.get(0).getUsername()+'&'+list.get(0).getIntroduction());
                 }else{
                     handlersendmessage( "NULL");
-//                    Message msg = Message.obtain();
-//                    msg.what = QUERYDATABASE;
-//                    msg.obj = "NULL"; //a#b
-//                    handler.sendMessage(msg);
                 }
             }
         });
@@ -78,7 +77,15 @@ public class LoginActivity extends AppCompatActivity {
                 case QUERYDATABASE:
                     bmobresult = (String) msg.obj;
                     if(loginsuccess(bmobresult)==true){
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        Long userid = getuserid(bmobresult);
+                        String username = getusername(bmobresult);
+                        String userpwd = getuserpwd(bmobresult);
+                        String userintro = getuserintro(bmobresult);
+                        myapp = MyApplication.getmyapp();
+                        myapp.setCurrentuser(new User(username,userid,userpwd,userintro));
+                        Intent intent = new Intent();
+                        intent.setClass(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
                     }else{
                         Toast.makeText(LoginActivity.this,"无法登录",Toast.LENGTH_LONG).show();
                     }
@@ -94,6 +101,9 @@ public class LoginActivity extends AppCompatActivity {
         String inputpwd = "";
         boolean found = false;
         for(int i=0;i<request.length();i++){
+            if(request.charAt(i)=='%'){
+                break;
+            }
             if(request.charAt(i)=='#'){
                 found = true;
                 continue;
@@ -117,5 +127,67 @@ public class LoginActivity extends AppCompatActivity {
         msg.what = QUERYDATABASE;
         msg.obj = str; //a#b
         handler.sendMessage(msg);
+    }
+
+    private Long getuserid(String str){
+        String ans = "";
+        boolean found = false;
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)=='$'){
+                break;
+            }
+            if(str.charAt(i)=='%'){
+                found = true;
+                continue;
+            }
+            if(found){
+                ans += str.charAt(i);
+            }
+        }
+        return Long.parseLong(ans);
+    }
+
+    private String getusername(String str){
+        String ans = "";
+        boolean found = false;
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)=='&'){
+                break;
+            }
+            if(str.charAt(i)=='$'){
+                found = true;
+                continue;
+            }
+            if(found){
+                ans += str.charAt(i);
+            }
+        }
+        return ans;
+    }
+
+    private String getuserpwd(String str){
+        String ans = "";
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)=='#'){
+                break;
+            }
+           ans += str.charAt(i);
+        }
+        return ans;
+    }
+
+    private String getuserintro(String str){
+        String ans = "";
+        boolean found = false;
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)=='&'){
+                found = true;
+                continue;
+            }
+            if(found){
+                ans += str.charAt(i);
+            }
+        }
+        return ans;
     }
 }

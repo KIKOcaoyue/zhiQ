@@ -15,4 +15,16 @@
         android:textColor="@color/zhiqpurple"
         android:textSize="36sp" />
 
+    <TextView
+        android:id="@+id/introtxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是个人简介" />
+
+    <Button
+        android:id="@+id/btnok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="好的" />
+
 </LinearLayout>

@@ -18,9 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import cn.bmob.v3.Bmob;
 
 import com.nuistcy.zhiq1_0.R;
 import com.nuistcy.zhiq1_0.activity.ViewtopicActivity;
+import com.nuistcy.zhiq1_0.status.MyApplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +37,11 @@ public class DashboardFragment extends Fragment {
     private String[] from = {"title","intro","hot"};
     private int[] to = {R.id.titletxt,R.id.introducetxt,R.id.hottxt};
     private SimpleAdapter adapter;
-    private int cnt = 10;
+    private MyApplication myapp;
 
     @Override
     public void onStart(){
+        myapp = MyApplication.getmyapp();
         initView();
         super.onStart();
     }
@@ -65,20 +68,25 @@ public class DashboardFragment extends Fragment {
     }
     public void initView(){
         data.clear();
-        for(int i=0;i<cnt;i++) {
+        for(int i=0;i<myapp.getTopiclist().size();i++) {
             Map<String, String> item = new HashMap<>();
-            item.put("title", "Android开发到底应该怎么学？");
-            item.put("intro", "Android开发是一个很困难的事情，作为一名大学生，到底应当怎么学习呢？请大家畅所欲言。");
-            item.put("hot", "热度：5902");
+            item.put("title", myapp.getTopiclist().get(i).getTitle());
+            item.put("intro", myapp.getTopiclist().get(i).getIntroduction());
+            item.put("hot", myapp.getTopiclist().get(i).getHot()+"热度    "+myapp.getTopiclist().get(i).getThumbsups()+"个赞");
             data.add(item);
         }
         adapter.notifyDataSetChanged();
         worldlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //adapter.notifyDataSetChanged();
-                getActivity().startActivity(new Intent(getActivity(),ViewtopicActivity.class));
-                //Toast.makeText(getActivity(),"第"+i+"行",Toast.LENGTH_LONG).show();
+                HashMap<String,String> map=(HashMap<String, String>) worldlist.getItemAtPosition(i);
+                String title = map.get("title");
+                String intro = map.get("intro");
+                Intent intent = new Intent();
+                intent.putExtra("title",title);
+                intent.putExtra("intro",intro);
+                intent.setClass(getActivity(),ViewtopicActivity.class);
+                getActivity().startActivity(intent);
             }
         });
     }

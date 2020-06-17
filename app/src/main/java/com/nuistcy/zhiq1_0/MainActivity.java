@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nuistcy.zhiq1_0.activity.LoginActivity;
+import com.nuistcy.zhiq1_0.entity.Notification;
+import com.nuistcy.zhiq1_0.entity.Relationship;
 import com.nuistcy.zhiq1_0.entity.Topic;
 import com.nuistcy.zhiq1_0.entity.User;
 import com.nuistcy.zhiq1_0.status.MyApplication;
@@ -34,6 +36,9 @@ import cn.bmob.v3.listener.FindListener;
 public class MainActivity extends AppCompatActivity {
 
     private static final int RETURNALLTOPIC = 4;
+    private static final int RETURNNOTIFICATION = 10;
+    private static final int RETURNALLFRIEND = 15;
+    private static final int RETURNALLUSER = 16;
     private MyApplication myapp;
     private String bmobresult;
 
@@ -58,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         getalltopic();
+        getallnotification();
+        getallfriend();
+        getalluser();
         super.onStart();
     }
 
@@ -99,11 +107,34 @@ public class MainActivity extends AppCompatActivity {
                 case RETURNALLTOPIC:
                     bmobresult = (String) msg.obj;
                     if(findsuccess(bmobresult)==true){
-                        Log.d("TOPICTEST", bmobresult);
                         ArrayList<Topic> tmplist = gettopiclist(bmobresult);
                         myapp.setTopiclist(tmplist);
                     }else{
                         Toast.makeText(MainActivity.this,"无法获取话题",Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case RETURNNOTIFICATION:
+                    bmobresult = (String) msg.obj;
+                    if(findsuccess(bmobresult)){
+                        ArrayList<Notification> tmplist = getnotificationlist(bmobresult);
+                        myapp.setNotificationlist(tmplist);
+//                        for(int i=0;i<tmplist.size();i++){
+//                            Log.d("NOTITEST","每一个对象的内容为:"+tmplist.get(i).toString());
+//                        }
+                    }
+                    break;
+                case RETURNALLFRIEND:
+                    bmobresult = (String) msg.obj;
+                    if(findsuccess(bmobresult)){
+                        ArrayList<Relationship> tmplist = getfriend(bmobresult);
+                        myapp.setFriendlist(tmplist);
+                    }
+                    break;
+                case RETURNALLUSER:
+                    bmobresult = (String) msg.obj;
+                    if(findsuccess(bmobresult)){
+                        ArrayList<User> tmplist = getalluser(bmobresult);
+                        myapp.setAlluserlist(tmplist);
                     }
                     break;
                 default:
@@ -115,6 +146,27 @@ public class MainActivity extends AppCompatActivity {
     private void handlersendmessage(String str){
         Message msg = Message.obtain();
         msg.what = RETURNALLTOPIC;
+        msg.obj = str;
+        handler.sendMessage(msg);
+    }
+
+    private void handlersendmessagereq(String str){
+        Message msg = Message.obtain();
+        msg.what = RETURNNOTIFICATION;
+        msg.obj = str;
+        handler.sendMessage(msg);
+    }
+
+    private void handlersendmessagefrd(String str){
+        Message msg = Message.obtain();
+        msg.what = RETURNALLFRIEND;
+        msg.obj = str;
+        handler.sendMessage(msg);
+    }
+
+    private void handlersendmessageusr(String str){
+        Message msg = Message.obtain();
+        msg.what = RETURNALLUSER;
         msg.obj = str;
         handler.sendMessage(msg);
     }
@@ -132,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
         String tmp = "";
         int state = 0;
         for(int i=0;i<str.length();i++){
-            Log.d("TOPICTEST","当前读取的字符为:"+str.charAt(i));
             if(state==0){
                 tmp += str.charAt(i);
                 state = 1;
@@ -197,6 +248,240 @@ public class MainActivity extends AppCompatActivity {
                 tmplist.add(tmptopic);
                 state = 0;
                 tmptopic = new Topic();
+                continue;
+            }
+        }
+        return tmplist;
+    }
+
+    private void getallnotification(){
+        BmobQuery<Notification> allnotification = new BmobQuery<>();
+        allnotification.addWhereEqualTo("userid",myapp.getCurrentuser().getUserid());
+        BmobQuery<Notification> allnotification2 = new BmobQuery<>();
+        allnotification2.addWhereEqualTo("isread",0);
+        List<BmobQuery<Notification>> andQuerys = new ArrayList<BmobQuery<Notification>>();
+        andQuerys.add(allnotification);
+        andQuerys.add(allnotification2);
+        BmobQuery<Notification> query = new BmobQuery<>();
+        query.and(andQuerys);
+        query.findObjects(new FindListener<Notification>() {
+            @Override
+            public void done(List<Notification> list, BmobException e) {
+                if(e==null){
+                    String allnotificationstr = "";
+                    for(int i=0;i<list.size();i++){
+                        allnotificationstr += list.get(i).getTitle();
+                        allnotificationstr += "#";
+                        allnotificationstr += list.get(i).getContent();
+                        allnotificationstr += "^";
+                        allnotificationstr += list.get(i).getObjectId();
+                        allnotificationstr += "&";
+                        allnotificationstr += list.get(i).getCreatedAt();
+                        allnotificationstr += "`";
+                        allnotificationstr += list.get(i).getRequestid();
+                        allnotificationstr += "~";
+                    }
+                    handlersendmessagereq(allnotificationstr);
+                    Log.d("TNOTIFICATIONTEST","发送了:"+allnotificationstr);
+                }else{
+                    handlersendmessagereq("NULL");
+                }
+            }
+        });
+    }
+
+    private ArrayList<Notification> getnotificationlist(String str){
+        ArrayList<Notification> tmplist = new ArrayList<>();
+        Notification tmpnotifi = new Notification();
+        String tmp = "";
+        int state = 0;
+        for(int i=0;i<str.length();i++){
+            if(state==0){
+                tmp += str.charAt(i);
+                state = 1;
+                continue;
+            }
+            if(state==1){
+                if(str.charAt(i)=='#'){
+                    state = 2;
+                    tmpnotifi.setTitle(tmp);
+                    tmp = "";
+                    continue;
+                }
+                tmp += str.charAt(i);
+            }
+            if(state==2){
+                if(str.charAt(i)=='^'){
+                    state = 3;
+                    tmpnotifi.setContent(tmp);
+                    tmp = "";
+                    continue;
+                }
+                tmp += str.charAt(i);
+            }
+            if(state==3){
+                if(str.charAt(i)=='&'){
+                    state = 4;
+                    tmpnotifi.setNotificationid(tmp);
+                    tmp = "";
+                    continue;
+                }
+                tmp += str.charAt(i);
+            }
+            if(state==4){
+                if(str.charAt(i)=='`'){
+                    state = 5;
+                    tmpnotifi.setTime(tmp);
+                    tmp = "";
+                    continue;
+                }
+                tmp += str.charAt(i);
+            }
+            if(state==5){
+                if(str.charAt(i)=='~'){
+                    state = -1;
+                    tmpnotifi.setRequestid(Long.parseLong(tmp));
+                    tmp = "";
+                }else{
+                    tmp += str.charAt(i);
+                }
+            }
+            if(state==-1){
+                tmplist.add(tmpnotifi);
+                state = 0;
+                tmpnotifi = new Notification();
+                continue;
+            }
+        }
+        return tmplist;
+    }
+
+    private void getallfriend(){
+        BmobQuery<Relationship> rlpquery = new BmobQuery<>();
+        rlpquery.findObjects(new FindListener<Relationship>() {
+            @Override
+            public void done(List<Relationship> list, BmobException e) {
+                if(e==null){
+                    String tmp = "";
+                    for(int i=0;i<list.size();i++){
+                        tmp += list.get(i).getMyid();
+                        tmp += "#";
+                        tmp += list.get(i).getYourid();
+                        tmp += "%";
+                    }
+                    handlersendmessagefrd(tmp);
+                }else{
+                    handlersendmessagefrd("NULL");
+                }
+            }
+        });
+    }
+
+    private ArrayList<Relationship> getfriend(String str){
+        ArrayList<Relationship> tmplist = new ArrayList<>();
+        Relationship tmprlp = new Relationship();
+        String tmp = "";
+        int state = 0;
+        for(int i=0;i<str.length();i++){
+            if(state==0){
+                tmp += str.charAt(i);
+                state = 1;
+                continue;
+            }
+            if(state==1){
+                if(str.charAt(i)=='#'){
+                    state = 2;
+                    tmprlp.setMyid(Long.parseLong(tmp));
+                    tmp = "";
+                    continue;
+                }
+                tmp += str.charAt(i);
+            }
+            if(state==2){
+                if(str.charAt(i)=='%'){
+                    state = -1;
+                    tmprlp.setYourid(Long.parseLong(tmp));
+                    tmp = "";
+                }else{
+                    tmp += str.charAt(i);
+                }
+
+            }
+            if(state==-1){
+                tmplist.add(tmprlp);
+                state = 0;
+                tmprlp = new Relationship();
+                continue;
+            }
+        }
+        return tmplist;
+    }
+
+    private void getalluser(){
+        BmobQuery<User> alluser = new BmobQuery<>();
+        alluser.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if(e==null){
+                    String tmpstr = "";
+                    for(int i=0;i<list.size();i++){
+                        tmpstr += list.get(i).getUserid();
+                        tmpstr += "@";
+                        tmpstr += list.get(i).getUsername();
+                        tmpstr += "$";
+                        tmpstr += list.get(i).getIntroduction();
+                        tmpstr += "^";
+                    }
+                    handlersendmessageusr(tmpstr);
+                }else{
+                    handlersendmessageusr("NULL");
+                }
+            }
+        });
+    }
+
+    private ArrayList<User> getalluser(String str){
+        ArrayList<User> tmplist = new ArrayList<>();
+        User tmpuser = new User();
+        String tmp = "";
+        int state = 0;
+        for(int i=0;i<str.length();i++){
+            if(state==0){
+                tmp += str.charAt(i);
+                state = 1;
+                continue;
+            }
+            if(state==1){
+                if(str.charAt(i)=='@'){
+                    state = 2;
+                    tmpuser.setUserid(Long.parseLong(tmp));
+                    tmp = "";
+                    continue;
+                }
+                tmp += str.charAt(i);
+            }
+            if(state==2){
+                if(str.charAt(i)=='$') {
+                    state = 3;
+                    tmpuser.setUsername(tmp);
+                    tmp = "";
+                    continue;
+                }
+                tmp += str.charAt(i);
+            }
+            if(state==3){
+                if(str.charAt(i)=='^'){
+                    state = -1;
+                    tmpuser.setIntroduction(tmp);
+                    tmp = "";
+                }else{
+                    tmp += str.charAt(i);
+                }
+            }
+            if(state==-1){
+                tmplist.add(tmpuser);
+                state = 0;
+                tmpuser = new User();
                 continue;
             }
         }

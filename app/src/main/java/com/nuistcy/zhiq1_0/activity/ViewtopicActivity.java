@@ -24,6 +24,8 @@ import com.nuistcy.zhiq1_0.entity.User;
 import com.nuistcy.zhiq1_0.status.MyApplication;
 import com.nuistcy.zhiq1_0.ui.dashboard.DashboardFragment;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class ViewtopicActivity extends AppCompatActivity {
     private TextView topictxt;
     private TextView introtxt;
     private TextView answertxt;
+    private TextView authoridtxt;
     private Button btnanswer;
     private Button btnnext;
     private String bmobresult;
@@ -68,9 +71,19 @@ public class ViewtopicActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(cur<answerlist.size()-1){
                     answertxt.setText(answerlist.get(++cur).getContent());
+                    authoridtxt.setText(answerlist.get(cur).getAuthorid().toString());
                 }else{
                     Toast.makeText(ViewtopicActivity.this,"这是最后一个回答了",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        authoridtxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent();
+                intent1.putExtra("authorid",Long.parseLong(authoridtxt.getText().toString()));
+                intent1.setClass(ViewtopicActivity.this,OtherinforActivity.class);
+                startActivity(intent1);
             }
         });
     }
@@ -79,6 +92,7 @@ public class ViewtopicActivity extends AppCompatActivity {
         topictxt = (TextView) findViewById(R.id.topictxt);
         introtxt = (TextView) findViewById(R.id.introtxt);
         answertxt = (TextView) findViewById(R.id.answertxt);
+        authoridtxt = (TextView) findViewById(R.id.authoridtxt);
         btnanswer = (Button) findViewById(R.id.btnanswer);
         btnnext = (Button) findViewById(R.id.btnnext);
     }
@@ -93,6 +107,7 @@ public class ViewtopicActivity extends AppCompatActivity {
                     if(querysuccess(bmobresult)==true){
                         ArrayList<Answer> tmpans = getanswerlist(bmobresult);
                         Log.d("ANSWERTEST","先填充:"+tmpans.size());
+                        answerlist.clear();
                         for(int i=0;i<tmpans.size();i++){
                             answerlist.add(tmpans.get(i));
                         }

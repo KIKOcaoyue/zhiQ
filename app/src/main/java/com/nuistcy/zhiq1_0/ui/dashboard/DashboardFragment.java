@@ -42,7 +42,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onStart(){
         myapp = MyApplication.getmyapp();
-        initView();
+        initData();
         super.onStart();
     }
 
@@ -66,7 +66,7 @@ public class DashboardFragment extends Fragment {
         worldlist.setAdapter(adapter);
         return root;
     }
-    public void initView(){
+    public void initData(){
         data.clear();
         for(int i=0;i<myapp.getTopiclist().size();i++) {
             Map<String, String> item = new HashMap<>();

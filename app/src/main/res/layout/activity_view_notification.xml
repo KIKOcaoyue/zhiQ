@@ -5,20 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.UserinforActivity">
+    tools:context=".activity.ViewNotificationActivity">
 
     <TextView
-        android:id="@+id/usernametxt"
+        android:id="@+id/notifititletxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="这是我的名字啊"
-        android:textColor="@color/zhiqwhite"
+        android:text="这是通知的标题"
         android:textSize="36sp" />
 
+    <TextView
+        android:id="@+id/noticontenttxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是通知的内容" />
+
+    <TextView
+        android:id="@+id/notitimetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是通知的时间" />
+
     <Button
-        android:id="@+id/btnok"
+        android:id="@+id/btncheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="好的" />
-
 </LinearLayout>

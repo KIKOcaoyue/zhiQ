@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.OtherinforActivity">
+
+    <TextView
+        android:id="@+id/otherusernametxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是别人的用户名啊"
+        android:textColor="@color/zhiqpurple"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/otherintrotxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是别人的简介"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnsendmessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发私信" />
+
+    <Button
+        android:id="@+id/btnaddfriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加为好友" />
+</LinearLayout>

@@ -25,10 +25,10 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
     private static final int QUERYDATABASE = 1;
     private String bmobresult;
-    private static TextView editusername;
-    private static TextView editpwd;
-    private static Button btnlogin;
-    private static Button btnregister;
+    private TextView editusername;
+    private TextView editpwd;
+    private Button btnlogin;
+    private Button btnregister;
     private MyApplication myapp;
 
     @Override
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         btnlogin = (Button) findViewById(R.id.btnlogin);
-        btnregister = (Button) findViewById(R.id.btnregregister);
+        btnregister = (Button) findViewById(R.id.btnregister);
         Bmob.initialize(this,"mykey");
         editusername = (TextView) findViewById(R.id.editusername);
         editpwd = (TextView) findViewById(R.id.editpwd);

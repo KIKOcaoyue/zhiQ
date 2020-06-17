@@ -5,4 +5,9 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="zhiqblue">#0C8DF0</color>
     <color name="zhiqpurple">#F00BD9</color>
+    <color name="zhiqwhite">#FFFFFF</color>
+    <color name="zhiqblack">#000000</color>
+    <color name="zhiqred">#FF0000</color>
+    <color name="zhiqyellow">#FFFFCC</color>
+    <color name="zhiqgrey">#808080</color>
 </resources>

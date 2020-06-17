@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.LaunchtopicActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        tools:ignore="Suspicious0dp">
         <EditText
             android:id="@+id/edittitletxt"
             android:layout_width="match_parent"
@@ -27,7 +27,8 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="请输入问题简介（问题描述）"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -38,9 +39,13 @@
 
         <Button
             android:id="@+id/btnlaunchtopic"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_all_shape"
+            android:layout_gravity="center"
             android:text="发表提问" />
+
     </LinearLayout>
 
 </LinearLayout>

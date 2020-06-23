@@ -31,8 +31,8 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
 
     private List<Map<String,String>> data = new ArrayList<>();
-    private String[] from = {"name","message"};
-    private int[] to = {R.id.nametxt,R.id.messagetxt};
+    private String[] from = {"name","message","userid"};
+    private int[] to = {R.id.nametxt,R.id.messagetxt,R.id.useridtxt};
     private ListView messagelist;
     private HomeViewModel homeViewModel;
     private SimpleAdapter adapter;
@@ -84,6 +84,7 @@ public class HomeFragment extends Fragment {
                         String userintro = getuserintrobyid(myapp.getFriendlist().get(i).getYourid());
                         item.put("name",username);
                         item.put("message",userintro);
+                        item.put("userid",myapp.getFriendlist().get(i).getYourid().toString());
                         Log.d("HOMETEST","我的好友有:"+username);
                         data.add(item);
                     }
@@ -105,9 +106,11 @@ public class HomeFragment extends Fragment {
                 HashMap<String,String> map=(HashMap<String, String>) messagelist.getItemAtPosition(i);
                 String name = map.get("name");
                 String message = map.get("message");
+                String userid = map.get("userid");
                 Intent intent = new Intent();
                 intent.putExtra("name",name);
                 intent.putExtra("message",message);
+                intent.putExtra("userid",userid);
                 intent.setClass(getActivity(), ChatActivity.class);
                 getActivity().startActivity(intent);
             }

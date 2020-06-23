@@ -51,14 +51,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_gerenzhuye"
+                    android:background="@drawable/trp_background"
                     android:text="个人主页" />
+                <!--android:drawableLeft="@drawable/ic_gerenzhuye"-->
 
                 <Button
                     android:id="@+id/btneditinfor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_xiugai"
+                    android:background="@drawable/trp_background"
                     android:text="修改资料" />
+                <!--android:drawableLeft="@drawable/ic_xiugai"-->
             </LinearLayout>
 
         </LinearLayout>
@@ -75,9 +81,11 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/btn_all_shape"
+            android:background="@drawable/trp_background"
+            android:drawableLeft="@drawable/ic_fabu"
             android:gravity="center"
             android:text="发表提问" />
+        <!--android:drawableLeft="@drawable/ic_fabu"-->
     </LinearLayout>
 
     <LinearLayout

@@ -138,6 +138,7 @@ public class ViewtopicActivity extends AppCompatActivity {
     private void queryallanswer(){
         BmobQuery<Answer> ansquery = new BmobQuery<>();
         ansquery.addWhereEqualTo("title",title);
+        ansquery.order("-updatedAt");
         ansquery.findObjects(new FindListener<Answer>() {
             @Override
             public void done(List<Answer> list, BmobException e) {

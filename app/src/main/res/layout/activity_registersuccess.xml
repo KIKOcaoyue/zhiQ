@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="注册成功"
+        android:gravity="center"
         android:textColor="@color/zhiqblue"
         android:textSize="36sp" />
 
@@ -27,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:gravity="center"
         android:textStyle="bold" />
 
     <TextView
@@ -34,11 +36,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="相信您会有一段美好的旅程。"
+        android:gravity="center"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/btnconfirm"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="好的" />
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/trp_background"
+        android:drawableLeft="@drawable/ic_finish"
+        android:text="点击完成"
+        />
+    <!---->
 </LinearLayout>

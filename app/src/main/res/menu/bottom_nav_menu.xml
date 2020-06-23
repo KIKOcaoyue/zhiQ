@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@mipmap/message"
-        android:title="消息" />
+        android:title="好友" />
 
 
     <item

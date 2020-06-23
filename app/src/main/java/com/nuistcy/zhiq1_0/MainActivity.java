@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int RETURNALLTOPIC = 4;
     private static final int RETURNNOTIFICATION = 10;
-    private static final int RETURNALLFRIEND = 15;
-    private static final int RETURNALLUSER = 16;
     private MyApplication myapp;
     private String bmobresult;
 
@@ -64,13 +62,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         getalltopic();
         getallnotification();
-        getallfriend();
-        getalluser();
         super.onStart();
     }
 
     private void getalltopic(){
         BmobQuery<Topic> alltopic = new BmobQuery<>();
+        alltopic.order("-createdAt");
         alltopic.findObjects(new FindListener<Topic>() {
             @Override
             public void done(List<Topic> list, BmobException e) {
@@ -123,20 +120,6 @@ public class MainActivity extends AppCompatActivity {
 //                        }
                     }
                     break;
-                case RETURNALLFRIEND:
-                    bmobresult = (String) msg.obj;
-                    if(findsuccess(bmobresult)){
-                        ArrayList<Relationship> tmplist = getfriend(bmobresult);
-                        myapp.setFriendlist(tmplist);
-                    }
-                    break;
-                case RETURNALLUSER:
-                    bmobresult = (String) msg.obj;
-                    if(findsuccess(bmobresult)){
-                        ArrayList<User> tmplist = getalluser(bmobresult);
-                        myapp.setAlluserlist(tmplist);
-                    }
-                    break;
                 default:
                     break;
             }
@@ -157,19 +140,7 @@ public class MainActivity extends AppCompatActivity {
         handler.sendMessage(msg);
     }
 
-    private void handlersendmessagefrd(String str){
-        Message msg = Message.obtain();
-        msg.what = RETURNALLFRIEND;
-        msg.obj = str;
-        handler.sendMessage(msg);
-    }
 
-    private void handlersendmessageusr(String str){
-        Message msg = Message.obtain();
-        msg.what = RETURNALLUSER;
-        msg.obj = str;
-        handler.sendMessage(msg);
-    }
 
     private boolean findsuccess(String str){
         if(!str.equals("NULL")){
@@ -356,135 +327,5 @@ public class MainActivity extends AppCompatActivity {
         return tmplist;
     }
 
-    private void getallfriend(){
-        BmobQuery<Relationship> rlpquery = new BmobQuery<>();
-        rlpquery.findObjects(new FindListener<Relationship>() {
-            @Override
-            public void done(List<Relationship> list, BmobException e) {
-                if(e==null){
-                    String tmp = "";
-                    for(int i=0;i<list.size();i++){
-                        tmp += list.get(i).getMyid();
-                        tmp += "#";
-                        tmp += list.get(i).getYourid();
-                        tmp += "%";
-                    }
-                    handlersendmessagefrd(tmp);
-                }else{
-                    handlersendmessagefrd("NULL");
-                }
-            }
-        });
-    }
 
-    private ArrayList<Relationship> getfriend(String str){
-        ArrayList<Relationship> tmplist = new ArrayList<>();
-        Relationship tmprlp = new Relationship();
-        String tmp = "";
-        int state = 0;
-        for(int i=0;i<str.length();i++){
-            if(state==0){
-                tmp += str.charAt(i);
-                state = 1;
-                continue;
-            }
-            if(state==1){
-                if(str.charAt(i)=='#'){
-                    state = 2;
-                    tmprlp.setMyid(Long.parseLong(tmp));
-                    tmp = "";
-                    continue;
-                }
-                tmp += str.charAt(i);
-            }
-            if(state==2){
-                if(str.charAt(i)=='%'){
-                    state = -1;
-                    tmprlp.setYourid(Long.parseLong(tmp));
-                    tmp = "";
-                }else{
-                    tmp += str.charAt(i);
-                }
-
-            }
-            if(state==-1){
-                tmplist.add(tmprlp);
-                state = 0;
-                tmprlp = new Relationship();
-                continue;
-            }
-        }
-        return tmplist;
-    }
-
-    private void getalluser(){
-        BmobQuery<User> alluser = new BmobQuery<>();
-        alluser.findObjects(new FindListener<User>() {
-            @Override
-            public void done(List<User> list, BmobException e) {
-                if(e==null){
-                    String tmpstr = "";
-                    for(int i=0;i<list.size();i++){
-                        tmpstr += list.get(i).getUserid();
-                        tmpstr += "@";
-                        tmpstr += list.get(i).getUsername();
-                        tmpstr += "$";
-                        tmpstr += list.get(i).getIntroduction();
-                        tmpstr += "^";
-                    }
-                    handlersendmessageusr(tmpstr);
-                }else{
-                    handlersendmessageusr("NULL");
-                }
-            }
-        });
-    }
-
-    private ArrayList<User> getalluser(String str){
-        ArrayList<User> tmplist = new ArrayList<>();
-        User tmpuser = new User();
-        String tmp = "";
-        int state = 0;
-        for(int i=0;i<str.length();i++){
-            if(state==0){
-                tmp += str.charAt(i);
-                state = 1;
-                continue;
-            }
-            if(state==1){
-                if(str.charAt(i)=='@'){
-                    state = 2;
-                    tmpuser.setUserid(Long.parseLong(tmp));
-                    tmp = "";
-                    continue;
-                }
-                tmp += str.charAt(i);
-            }
-            if(state==2){
-                if(str.charAt(i)=='$') {
-                    state = 3;
-                    tmpuser.setUsername(tmp);
-                    tmp = "";
-                    continue;
-                }
-                tmp += str.charAt(i);
-            }
-            if(state==3){
-                if(str.charAt(i)=='^'){
-                    state = -1;
-                    tmpuser.setIntroduction(tmp);
-                    tmp = "";
-                }else{
-                    tmp += str.charAt(i);
-                }
-            }
-            if(state==-1){
-                tmplist.add(tmpuser);
-                state = 0;
-                tmpuser = new User();
-                continue;
-            }
-        }
-        return tmplist;
-    }
 }

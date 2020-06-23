@@ -11,44 +11,63 @@
         android:id="@+id/retxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="注册"
-        android:textColor="@color/zhiqblue"
+        android:gravity="center"
+        android:textColor="@color/zhiqyellow"
         android:textSize="36sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/editregusername"
-            android:layout_width="match_parent"
+            android:layout_width="316dp"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
             android:hint="用户名"
+            android:background="@drawable/edt_all_shape"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editregpwd"
-            android:layout_width="match_parent"
+            android:layout_width="316dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:ems="10"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:hint="密码"
+            android:background="@drawable/edt_all_shape"
             android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/editregpwdc"
-            android:layout_width="match_parent"
+            android:layout_width="316dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:ems="10"
             android:hint="确认密码"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edt_all_shape"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnregregister"
-            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="注册" />
+            android:text="点击注册"
+            android:layout_gravity="center"
+            android:background="@drawable/trp_background"
+            android:drawableLeft="@drawable/ic_register"
+            />
+        <!---->
     </LinearLayout>
 </LinearLayout>

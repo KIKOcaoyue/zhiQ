@@ -4,9 +4,9 @@
     <!-- 获取sd卡写的权限，用于文件上传和下载 -->
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/icon"
+        android:label="ZHIQ"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
         <activity android:name=".activity.ViewNotificationActivity"></activity>
@@ -27,13 +27,14 @@
         <activity android:name=".activity.ViewtopicActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="ZHIQ"
             android:launchMode="singleTop" />
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.nuistcy.zhiq1_0.BmobContentProvider" />
-    </application> <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    </application>
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

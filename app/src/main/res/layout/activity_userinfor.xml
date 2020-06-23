@@ -15,10 +15,21 @@
         android:textColor="@color/zhiqwhite"
         android:textSize="36sp" />
 
-    <Button
-        android:id="@+id/btnok"
+    <TextView
+        android:id="@+id/introtxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="这是我的简介啊" />
+
+    <Button
+        android:id="@+id/btnok"
+        android:layout_marginTop="50dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/trp_background"
+        android:drawableLeft="@drawable/ic_fanhui"
         android:text="好的" />
+    <!---->
 
 </LinearLayout>

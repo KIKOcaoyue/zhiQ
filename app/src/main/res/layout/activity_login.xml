@@ -64,9 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
-            android:background="@drawable/btn_all_shape"
-            android:gravity="center"
-            android:text="登录" />
+            android:background="@drawable/trp_background"
+            android:drawableTop="@drawable/ic_login"
+            android:gravity="center" />
+        <!---->
     </LinearLayout>
 
     <LinearLayout

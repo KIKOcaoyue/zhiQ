@@ -28,7 +28,12 @@
 
     <Button
         android:id="@+id/btncheck"
-        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/trp_background"
+        android:drawableLeft="@drawable/ic_fanhui"
         android:text="好的" />
+    <!--android:drawableLeft="@drawable/ic_fanhui"-->
 </LinearLayout>

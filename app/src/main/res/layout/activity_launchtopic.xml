@@ -42,10 +42,11 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_all_shape"
+            android:background="@drawable/trp_background"
             android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_fabu"
             android:text="发表提问" />
-
+        <!--android:drawableLeft="@drawable/ic_fabu"-->
     </LinearLayout>
 
 </LinearLayout>

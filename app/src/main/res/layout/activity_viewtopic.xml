@@ -65,31 +65,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_all_shape"
-            android:text="赞一个(10)" />
+            android:background="@drawable/trp_background"
+            android:drawableLeft="@drawable/ic_praise_icon"
+            android:text="赞一个(10)"
+            android:textSize="10sp" />
+        <!--android:drawableLeft="@drawable/ic_praise_icon"-->
 
         <Button
             android:id="@+id/btnreview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_all_shape"
-            android:text="评论(3)" />
+            android:background="@drawable/trp_background"
+            android:drawableLeft="@drawable/ic_pinglun"
+            android:text="评论问题(3)"
+            android:textSize="10sp" />
+        <!--android:drawableLeft="@drawable/ic_pinglun"-->
 
         <Button
             android:id="@+id/btnnext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_all_shape"
-            android:text="下一个回答" />
+            android:background="@drawable/trp_background"
+            android:drawableLeft="@drawable/ic_qianjinxiayige"
+            android:text="下一个回答"
+            android:textSize="10sp" />
+        <!--android:drawableLeft="@drawable/ic_qianjinxiayige"-->
 
         <Button
             android:id="@+id/btnanswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_all_shape"
-            android:text="回答该问题" />
+            android:background="@drawable/trp_background"
+            android:drawableLeft="@drawable/ic_huida"
+            android:text="回答该问题"
+            android:textSize="10sp" />
+        <!--android:drawableLeft="@drawable/ic_huida"-->
     </LinearLayout>
 </LinearLayout>

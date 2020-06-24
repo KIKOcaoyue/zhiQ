@@ -14,16 +14,22 @@
 
         <ImageButton
             android:id="@+id/imgyour"
-            android:layout_width="10dp"
-            android:layout_height="150dp"
+            android:layout_width="48dp"
+            android:layout_height="60dp"
+            android:scaleType="fitCenter"
             android:layout_gravity="left"
             android:layout_weight="1"
+            android:background="@drawable/trp_background"
+            android:adjustViewBounds="true"
             tools:srcCompat="@mipmap/ava1" />
+
 
         <ImageButton
             android:id="@+id/imgmy"
-            android:layout_width="10dp"
-            android:layout_height="150dp"
+            android:layout_width="48dp"
+            android:layout_height="60dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/trp_background"
             android:layout_gravity="right"
             android:layout_weight="1"
             tools:srcCompat="@mipmap/ava1" />
@@ -31,8 +37,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        tools:ignore="Suspicious0dp">
 
         <ListView
             android:id="@+id/chatlist"
@@ -52,14 +60,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/btnsendmessage"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:drawableLeft="@drawable/ic_send"
+            android:background="@drawable/trp_background"
+            android:text="发送" />
     </LinearLayout>
 </LinearLayout>

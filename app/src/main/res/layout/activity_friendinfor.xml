@@ -7,37 +7,57 @@
     android:orientation="vertical"
     tools:context=".activity.FriendinforActivity">
 
-    <TextView
-        android:id="@+id/friendnametxt"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="这是好友的名字啊"
-        android:textColor="@color/colorAccent"
-        android:textSize="36sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        tools:ignore="Suspicious0dp">
+        <TextView
+            android:id="@+id/friendnametxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="这是好友的名字啊"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="36sp" />
 
-    <TextView
-        android:id="@+id/friendintrotxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="这是好友的简介"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/friendintrotxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="这是好友的简介"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/textview100"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="你们成为好友已经" />
+        <TextView
+            android:id="@+id/textview100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="你们成为好友已经" />
 
-    <TextView
-        android:id="@+id/frienddaytxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="100天啦"
-        android:textSize="30sp" />
+        <TextView
+            android:id="@+id/frienddaytxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="100天啦"
+            android:textSize="30sp" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btndeletefriend"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="删除好友" />
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btndeletefriend"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/trp_background"
+            android:text="删除好友"
+            android:textColor="@color/zhiqred" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -51,8 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_gerenzhuye"
                     android:background="@drawable/trp_background"
+                    android:drawableLeft="@drawable/ic_personinfo"
                     android:text="个人主页" />
                 <!--android:drawableLeft="@drawable/ic_gerenzhuye"-->
 

@@ -35,7 +35,7 @@ public class UserinforActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        usernametxt = (TextView) findViewById(R.id.usernametxt);
+        usernametxt = (TextView) findViewById(R.id.usrnmetxt);
         introtxt = (TextView) findViewById(R.id.introtxt);
         btnok = (Button) findViewById(R.id.btnok);
     }

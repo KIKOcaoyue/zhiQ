@@ -8,7 +8,7 @@
     tools:context=".activity.UserinforActivity">
 
     <TextView
-        android:id="@+id/usernametxt"
+        android:id="@+id/usrnmetxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="这是我的名字啊"

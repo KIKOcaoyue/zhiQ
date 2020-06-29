@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.FriendinforActivity">
+    tools:context=".activity.FriendinforActivity"
+    android:background="@drawable/bg8">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +14,14 @@
         android:layout_weight="1"
         android:orientation="vertical"
         tools:ignore="Suspicious0dp">
+
         <TextView
             android:id="@+id/friendnametxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="这是好友的名字啊"
             android:gravity="center"
-            android:textColor="@color/colorAccent"
+            android:text="这是好友的名字啊"
+            android:textColor="@color/zhiqyellow"
             android:textSize="36sp" />
 
         <TextView

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg4"
     android:orientation="vertical"
     tools:context=".activity.ChatActivity">
 
@@ -11,37 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/imgyour"
-            android:layout_width="48dp"
-            android:layout_height="60dp"
-            android:scaleType="fitCenter"
-            android:layout_gravity="left"
-            android:layout_weight="1"
+        <Button
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_fanhui"
             android:background="@drawable/trp_background"
-            android:adjustViewBounds="true"
-            tools:srcCompat="@mipmap/ava1" />
-
-
-        <ImageButton
-            android:id="@+id/imgmy"
-            android:layout_width="48dp"
-            android:layout_height="60dp"
-            android:scaleType="fitCenter"
-            android:background="@drawable/trp_background"
-            android:layout_gravity="right"
+            />
+        <TextView
+            android:id="@+id/nametext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:srcCompat="@mipmap/ava1" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/trp_background"
+            android:textSize="35dp"
+            android:text="ppp"/>
+
+        <Button
+            android:id="@+id/frienginfo"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_info"
+            android:background="@drawable/trp_background"
+            />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_margin="5dp"
         android:orientation="vertical"
         tools:ignore="Suspicious0dp">
-
         <ListView
             android:id="@+id/chatlist"
             android:layout_width="match_parent"
@@ -64,7 +69,7 @@
 
         <Button
             android:id="@+id/btnsendmessage"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableLeft="@drawable/ic_send"

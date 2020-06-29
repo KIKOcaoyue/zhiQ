@@ -6,6 +6,8 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.util.V;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.nuistcy.zhiq1_0.R;
 import com.nuistcy.zhiq1_0.entity.Message;
 import com.nuistcy.zhiq1_0.entity.Notification;
 import com.nuistcy.zhiq1_0.status.MyApplication;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,8 +39,8 @@ import static android.os.SystemClock.sleep;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private ImageButton imgyour;
-    private ImageButton imgmy;
+    private Button btnfriendinfro;
+    private Button btnreturn;
     private ListView chatlist;
     private EditText editmesstxt;
     private Button btnsendmessage;
@@ -44,10 +49,10 @@ public class ChatActivity extends AppCompatActivity {
     private Long userid;
     private MyApplication myapp;
     private ArrayList<Map<String,String>> data = new ArrayList<>();
-    private String[] from = {"usrnme","messtime","message"};
-    private int[] to = {R.id.usrnmetxt,R.id.messtimetxt,R.id.messagetxt};
+    private String[] from = {"usrnme1","messtime1","message1","usrnme2","messtime2","message2"};
+    private int[] to = {R.id.usrnmetxt1,R.id.messtimetxt1,R.id.messagetxt1,R.id.usrnmetxt2,R.id.messtimetxt2,R.id.messagetxt2};
     private SimpleAdapter adapter;
-
+    private TextView nametext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +61,13 @@ public class ChatActivity extends AppCompatActivity {
         initView();
         Intent intent = getIntent();
         userid = Long.parseLong(intent.getStringExtra("userid"));
+        usrname = intent.getStringExtra("name");
         myapp = MyApplication.getmyapp();
         chatlist = (ListView) findViewById(R.id.chatlist);
         adapter = new SimpleAdapter(ChatActivity.this,data,R.layout.chatlistitem,from,to);
         chatlist.setAdapter(adapter);
         timer.schedule(task,0,1500);
-        imgyour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = getIntent();
-                intent.setClass(ChatActivity.this,FriendinforActivity.class);
-                startActivity(intent);
-            }
-        });
+        nametext.setText(usrname);
         btnsendmessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,11 +75,25 @@ public class ChatActivity extends AppCompatActivity {
                 editmesstxt.setText("");
             }
         });
+        btnfriendinfro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = getIntent();
+                intent1.setClass(ChatActivity.this,FriendinforActivity.class);
+                startActivity(intent1);
+            }
+        });
+        btnreturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
     }
 
     private void initView(){
-        imgyour = (ImageButton) findViewById(R.id.imgyour);
-        imgmy = (ImageButton) findViewById(R.id.imgmy);
+        nametext = (TextView) findViewById(R.id.nametext);
+        btnfriendinfro = (Button) findViewById(R.id.frienginfo);
+        btnreturn = (Button) findViewById(R.id.back);
         editmesstxt = (EditText) findViewById(R.id.editmesstxt);
         btnsendmessage = (Button) findViewById(R.id.btnsendmessage);
     }
@@ -136,9 +149,21 @@ public class ChatActivity extends AppCompatActivity {
                     data.clear();
                     for(int i=0;i<list.size();i++){
                         Map<String, String> item = new HashMap<>();
-                        item.put("usrnme",getusernamebyid(list.get(i).getSenderid()));
-                        item.put("messtime",list.get(i).getTime());
-                        item.put("message",list.get(i).getContent());
+                        if(list.get(i).getSenderid().equals(myapp.getCurrentuser().getUserid())){
+                            item.put("usrnme2",getusernamebyid(list.get(i).getSenderid()));
+                            item.put("messtime2",list.get(i).getTime());
+                            item.put("message2",list.get(i).getContent());
+                            item.put("usrnme1","");
+                            item.put("messtime1","");
+                            item.put("message1","");
+                        }else{
+                            item.put("usrnme1",getusernamebyid(list.get(i).getSenderid()));
+                            item.put("messtime1",list.get(i).getTime());
+                            item.put("message1",list.get(i).getContent());
+                            item.put("usrnme2","");
+                            item.put("messtime2","");
+                            item.put("message2","");
+                        }
                         data.add(item);
                     }
                     freshdata();

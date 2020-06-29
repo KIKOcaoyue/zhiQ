@@ -8,7 +8,7 @@
         android:label="ZHIQ"
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat">
+        android:theme="@style/BaseAppTheme">
         <activity android:name=".activity.FriendinforActivity"></activity>
         <activity android:name=".activity.ViewNotificationActivity" />
         <activity android:name=".activity.OtherinforActivity" />
